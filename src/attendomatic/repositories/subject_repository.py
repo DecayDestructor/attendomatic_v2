@@ -13,6 +13,10 @@ class SubjectRepository:
         statement = select(Subject).where(Subject.code == code)
         return self.session.exec(statement).first()
 
+    def get_subjects_by_user_id(self, user_id: int):
+        statement = select(Subject).where(Subject.user_id == user_id)
+        return self.session.exec(statement).all()
+
     def create_subject(self, name: str, code: str):
         subject = Subject(name=name, code=code)
         self.session.add(subject)

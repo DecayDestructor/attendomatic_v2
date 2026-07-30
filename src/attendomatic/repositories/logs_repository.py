@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from ..models.models import Logs, DayOfWeek, Status, Type
-from datetime import datetime
+from datetime import date, datetime
 
 
 class LogsRepository:
@@ -14,6 +14,8 @@ class LogsRepository:
         type: Type | None = None,
         status: Status | None = None,
         is_regular: bool | None = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
     ):
         statement = select(Logs)
 
@@ -32,6 +34,12 @@ class LogsRepository:
         if is_regular is not None:
             statement = statement.where(Logs.is_regular == is_regular)
 
+        if start_date is not None:
+            statement = statement.where(Logs.class_date >= start_date)
+
+        if end_date is not None:
+            statement = statement.where(Logs.class_date <= end_date)
+
         return statement
 
     def create_log(self, log: Logs):
@@ -41,6 +49,7 @@ class LogsRepository:
         return log
 
     def update_log(self, log: Logs):
+
         self.session.add(log)
         self.session.commit()
         self.session.refresh(log)
@@ -57,6 +66,8 @@ class LogsRepository:
         type: Type | None = None,
         status: Status | None = None,
         isRegular: bool | None = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
     ):
         statement = self._build_query(
             user_id=user_id,
@@ -64,6 +75,8 @@ class LogsRepository:
             type=type,
             status=status,
             is_regular=isRegular,
+            start_date=start_date,
+            end_date=end_date,
         )
         return self.session.exec(statement).all()
 
@@ -74,6 +87,8 @@ class LogsRepository:
         type: Type | None = None,
         status: Status | None = None,
         is_regular: bool | None = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
     ):
         statement = self._build_query(
             user_id=user_id,
@@ -81,5 +96,7 @@ class LogsRepository:
             type=type,
             status=status,
             is_regular=is_regular,
+            start_date=start_date,
+            end_date=end_date,
         )
         return self.session.exec(statement).first()
