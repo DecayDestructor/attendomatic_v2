@@ -69,3 +69,7 @@ class SlotService:
             end_time=end_time,
             type=type,
         )
+
+    def get_slot_by_id(self, slot_id: int):
+        # Logic to retrieve a slot by its ID
+        return self.slots_repository.get_slot_by_id(slot_id)

@@ -23,6 +23,10 @@ class SubjectService:
         # Logic to retrieve a subject by its code
         return self.subject_repository.get_subject_by_code(code)
 
+    def get_subject_by_id(self, subject_id: int):
+        # Logic to retrieve a subject by its ID
+        return self.subject_repository.get_subject_by_id(subject_id)
+
     def get_subjects_by_user_id(self, user_id: int):
         # Logic to retrieve subjects associated with a user
         return self.subject_repository.get_subjects_by_user_id(user_id)

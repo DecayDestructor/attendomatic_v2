@@ -76,3 +76,6 @@ class SlotRepository:
         self.session.commit()
         self.session.refresh(slot)
         return slot
+
+    def get_slot_by_id(self, slot_id: int):
+        return self.session.get(Slot, slot_id)
