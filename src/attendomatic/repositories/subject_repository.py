@@ -23,3 +23,30 @@ class SubjectRepository:
         self.session.commit()
         self.session.refresh(subject)
         return subject
+
+    def get_all_subjects(self):
+        statement = select(Subject)
+        return self.session.exec(statement).all()
+
+    def delete_subject(self, subject_id: int):
+        subject = self.get_subject_by_id(subject_id)
+        if subject:
+            self.session.delete(subject)
+            self.session.commit()
+            return True
+        return False
+
+    def update_subject(
+        self, subject_id: int, name: str | None = None, code: str | None = None
+    ):
+        subject = self.get_subject_by_id(subject_id)
+        if subject:
+            if name is not None:
+                subject.name = name
+            if code is not None:
+                subject.code = code
+            self.session.add(subject)
+            self.session.commit()
+            self.session.refresh(subject)
+            return subject
+        return None

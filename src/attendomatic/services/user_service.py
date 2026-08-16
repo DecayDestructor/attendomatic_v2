@@ -1,3 +1,5 @@
+from attendomatic.repositories.user_repository import UserRepository
+
 from ..repositories.logs_repository import LogsRepository
 from ..repositories.subject_repository import SubjectRepository
 from ..repositories.slots_repository import SlotRepository
@@ -13,16 +15,22 @@ class UserService:
         subject_repository: SubjectRepository,
         slots_repository: SlotRepository,
         timetable_repository: TimeTableRepository,
+        user_repository: UserRepository,
     ):
         self.logs_repository = logs_repository
         self.subject_repository = subject_repository
         self.slots_repository = slots_repository
         self.timetable_repository = timetable_repository
+        self.user_repository = user_repository
 
     def get_user_by_id(self, user_id: int):
         # Logic to retrieve a user by their ID
-        return self.logs_repository.get_user_by_id(user_id)
+        return self.user_repository.get_user_by_id(user_id)
 
     def get_user_by_email(self, email: str):
         # Logic to retrieve a user by their email
-        return self.logs_repository.get_user_by_email(email)
+        return self.user_repository.get_user_by_email(email)
+
+    def get_user_by_uid(self, uid: str):
+        # Logic to retrieve a user by their UID
+        return self.user_repository.get_user_by_uid(uid)

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from . import config
 from functools import lru_cache
 from fastmcp import FastMCP
+from .routes import user, subjects
 
 app = FastAPI()
 
@@ -23,5 +24,7 @@ async def read_root():
     }
 
 
+app.include_router(user.router, prefix="/api/v1", tags=["User"])
+app.include_router(subjects.router, prefix="/api/v1", tags=["Subjects"])
 if __name__ == "__main__":
     mcp.run()

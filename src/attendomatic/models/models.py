@@ -32,6 +32,9 @@ class User(SQLModel, table=True):
     name: str
     email: str
     uid: str | None = Field(default=None, unique=True)
+    is_admin: bool = Field(
+        default=False
+    )  # New field to indicate if the user is an admin
 
 
 # Defining the Subject model to represent subjects in the system

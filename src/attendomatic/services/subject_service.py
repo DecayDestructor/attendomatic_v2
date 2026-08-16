@@ -34,3 +34,17 @@ class SubjectService:
     def create_subject(self, name: str, code: str):
         # Logic to create a new subject
         return self.subject_repository.create_subject(name, code)
+
+    def get_all_subjects(self):
+        # Logic to retrieve all subjects
+        return self.subject_repository.get_all_subjects()
+
+    def delete_subject(self, subject_id: int):
+        # Logic to delete a subject by its ID
+        return self.subject_repository.delete_subject(subject_id)
+
+    def update_subject(
+        self, subject_id: int, name: str | None = None, code: str | None = None
+    ):
+        # Logic to update a subject's details
+        return self.subject_repository.update_subject(subject_id, name, code)

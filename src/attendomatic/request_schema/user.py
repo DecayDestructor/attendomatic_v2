@@ -7,3 +7,14 @@ class GetUserByIdRequest(BaseModel):
 
 class GetUserByEmailRequest(BaseModel):
     email: str
+
+
+class GetUserByUidRequest(BaseModel):
+    uid: str
+
+
+class GetUserResponse(BaseModel):
+    user_id: int
+    email: str
+    uid: str
+    name: str
