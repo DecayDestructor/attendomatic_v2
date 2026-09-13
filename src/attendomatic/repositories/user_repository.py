@@ -17,3 +17,10 @@ class UserRepository:
     def get_user_by_uid(self, uid: str):
         statement = select(User).where(User.uid == uid)
         return self.session.exec(statement).first()
+
+    def create_user(self, name: str, email: str, uid: str, is_admin: bool = False):
+        new_user = User(name=name, email=email, uid=uid, is_admin=is_admin)
+        self.session.add(new_user)
+        self.session.commit()
+        self.session.refresh(new_user)
+        return new_user

@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from ..models.models import Subject
+from ..models.models import Slot, Subject, TimeTable
 
 
 class SubjectRepository:
@@ -14,7 +14,13 @@ class SubjectRepository:
         return self.session.exec(statement).first()
 
     def get_subjects_by_user_id(self, user_id: int):
-        statement = select(Subject).where(Subject.user_id == user_id)
+        statement = (
+            select(Subject)
+            .join(Slot, Slot.subject_id == Subject.id)
+            .join(TimeTable, TimeTable.slot_id == Slot.id)
+            .where(TimeTable.user_id == user_id)
+        )
+
         return self.session.exec(statement).all()
 
     def create_subject(self, name: str, code: str):

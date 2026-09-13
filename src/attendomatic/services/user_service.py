@@ -34,3 +34,7 @@ class UserService:
     def get_user_by_uid(self, uid: str):
         # Logic to retrieve a user by their UID
         return self.user_repository.get_user_by_uid(uid)
+
+    def create_user(self, name: str, email: str, uid: str, is_admin: bool = False):
+        # Logic to create a new user
+        return self.user_repository.create_user(name, email, uid, is_admin)

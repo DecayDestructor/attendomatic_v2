@@ -30,7 +30,7 @@ class Type(str, Enum):
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
-    email: str
+    email: str = Field(default=None, unique=True)
     uid: str | None = Field(default=None, unique=True)
     is_admin: bool = Field(
         default=False
