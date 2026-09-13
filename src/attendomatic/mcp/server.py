@@ -78,11 +78,23 @@ async def protected_resource_metadata(request: Request):
     return JSONResponse(metadata)
 
 
+from contextlib import asynccontextmanager
+
 mcp_app = mcp.http_app(path="/mcp", transport="streamable-http")
-app = FastAPI(lifespan=mcp_app.lifespan)
+
+
+@asynccontextmanager
+async def combined_lifespan(app: FastAPI):
+    from ..models.main import create_db_and_tables
+
+    create_db_and_tables()
+    async with mcp_app.lifespan(app):
+        yield
+
+
+app = FastAPI(lifespan=combined_lifespan)
 app.add_middleware(AuthMiddleware)
 app.mount("/", mcp_app)
-
 
 if __name__ == "__main__":
     uvicorn.run(

@@ -19,6 +19,7 @@ class SubjectRepository:
             .join(Slot, Slot.subject_id == Subject.id)
             .join(TimeTable, TimeTable.slot_id == Slot.id)
             .where(TimeTable.user_id == user_id)
+            .distinct()
         )
 
         return self.session.exec(statement).all()
