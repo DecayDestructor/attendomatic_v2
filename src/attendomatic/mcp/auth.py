@@ -171,6 +171,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
         if not request.url.path.startswith("/mcp"):
             return await call_next(request)
+
         try:
 
             # -------------------------------------------------------
