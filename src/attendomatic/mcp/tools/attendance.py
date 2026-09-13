@@ -106,9 +106,11 @@ def get_attendance(
 
     # Map subject_id to subject name
     subject_map = {subject.id: subject.name for subject in subjects}
-    for attendance in attendances:
-        attendance.subject_name = subject_map.get(
-            attendance.subject_id, "Unknown Subject"
-        )
 
-    return attendances
+    return [
+        {
+            **attendance.model_dump(),  # or .model_dump() if Pydantic v2
+            "subject_name": subject_map.get(attendance.subject_id, "Unknown Subject"),
+        }
+        for attendance in attendances
+    ]
