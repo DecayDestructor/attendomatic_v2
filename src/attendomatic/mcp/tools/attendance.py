@@ -1,6 +1,6 @@
 # attendance_tools.py
 
-from ..dependencies import get_attendance_service
+from ..dependencies import get_attendance_service, get_subject_service
 from fastmcp.dependencies import CurrentRequest
 from starlette.requests import Request
 from ...models.models import Status, Type
@@ -88,8 +88,13 @@ def get_attendance(
     """
     user = _get_current_user(request)
 
+    with get_subject_service() as subject_service:
+        subjects = subject_service.get_all_subjects()
+        if not subjects:
+            raise ValueError("No subjects found")
+
     with get_attendance_service() as attendance_service:
-        return attendance_service.get_attendance(
+        attendances = attendance_service.get_attendance(
             user_id=user.id,
             status=status,
             type=type,
@@ -98,3 +103,12 @@ def get_attendance(
             end_date=end_date,
             subject_id=subject_id,
         )
+
+    # Map subject_id to subject name
+    subject_map = {subject.id: subject.name for subject in subjects}
+    for attendance in attendances:
+        attendance.subject_name = subject_map.get(
+            attendance.subject_id, "Unknown Subject"
+        )
+
+    return attendances
