@@ -41,18 +41,20 @@ class AttendanceService:
             user_id=user_id,
             subject_id=subject.id,
             type=type,
-            is_regular=is_regular,
+            isRegular=is_regular,
             class_end_time=class_end_time,
-            class_date=class_date,
+            start_date=class_date,
+            end_date=class_date,
         )
         if existing_log:
-            if existing_log.status != status:
-                # Update the status of the existing log
-                existing_log.status = status
-                self.logs_repository.update_log(existing_log)
-                return existing_log
-            else:
-                raise ValueError("Attendance already marked with the same status")
+            for existing_log in existing_log:
+                if existing_log.status != status:
+                    # Update the status of the existing log
+                    existing_log.status = status
+                    self.logs_repository.update_log(existing_log)
+                    return existing_log
+                else:
+                    raise ValueError("Attendance already marked with the same status")
         # Logic to mark attendance for a user at an event
         log = Logs(
             user_id=user_id,

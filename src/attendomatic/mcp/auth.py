@@ -21,7 +21,7 @@ TOOL_SCOPES: dict[str, list[str]] = {
     # Read-only operations — subjects
     "get_subject_by_id": ["all:read"],
     "get_subject_by_code": ["all:read"],
-    "get_subjects_by_user_id": ["all:read"],
+    "get_my_subjects": ["all:read"],
     "get_all_subjects": ["all:read"],
     # Write operations — subjects
     "create_subject": ["user:write"],
@@ -41,8 +41,9 @@ TOOL_SCOPES: dict[str, list[str]] = {
     "get_timetable": ["all:read"],
     "get_timetable_by_id": ["all:read"],
     # Write operations — timetable
-    "create_timetable": ["user:write"],
+    "add_slot_to_timetable": ["user:write"],
 }
+
 
 # -------------------------------------------------------------------
 # Logging

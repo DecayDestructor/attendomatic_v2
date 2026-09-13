@@ -146,7 +146,7 @@ def get_my_subjects(request: Request = CurrentRequest()):
         A list of subjects associated with the current user.
     """
     user = _get_current_user(request)
-
+    logger.info(f"UserID: {user.id if user else 'None'} trying to get their subjects\n")
     with get_subject_service() as subject_service:
         subjects = subject_service.get_subjects_by_user_id(user.id)
 

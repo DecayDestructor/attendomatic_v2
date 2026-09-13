@@ -16,6 +16,7 @@ class LogsRepository:
         is_regular: bool | None = None,
         start_date: date | None = None,
         end_date: date | None = None,
+        class_end_time: datetime | None = None,
     ):
         statement = select(Logs)
 
@@ -39,6 +40,9 @@ class LogsRepository:
 
         if end_date is not None:
             statement = statement.where(Logs.class_date <= end_date)
+
+        if class_end_time is not None:
+            statement = statement.where(Logs.class_end_time == class_end_time)
 
         return statement
 
@@ -68,6 +72,7 @@ class LogsRepository:
         isRegular: bool | None = None,
         start_date: date | None = None,
         end_date: date | None = None,
+        class_end_time: datetime | None = None,
     ):
         statement = self._build_query(
             user_id=user_id,
@@ -77,6 +82,7 @@ class LogsRepository:
             is_regular=isRegular,
             start_date=start_date,
             end_date=end_date,
+            class_end_time=class_end_time,
         )
         return self.session.exec(statement).all()
 
@@ -86,6 +92,7 @@ class LogsRepository:
         subject_id: int | None = None,
         type: Type | None = None,
         status: Status | None = None,
+        class_end_time: datetime | None = None,
         is_regular: bool | None = None,
         start_date: date | None = None,
         end_date: date | None = None,
@@ -98,5 +105,6 @@ class LogsRepository:
             is_regular=is_regular,
             start_date=start_date,
             end_date=end_date,
+            class_end_time=class_end_time,
         )
         return self.session.exec(statement).first()

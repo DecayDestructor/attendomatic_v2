@@ -23,14 +23,12 @@ from .tools.slots import (
     get_slots,
     create_slot,
     get_slot_by_id,
-    get_slot_service,
 )
 
 from .tools.timetable import (
     get_timetable,
-    create_timetable,
+    add_slot_to_timetable,
     get_timetable_by_id,
-    get_timetable_service,
 )
 from .tools.attendance import mark_attendance, get_attendance
 
@@ -44,6 +42,15 @@ for tool in (
     get_subject_by_id,
     get_my_subjects,
     update_subject,
+    get_single_slot,
+    get_slots,
+    create_slot,
+    get_slot_by_id,
+    get_timetable,
+    add_slot_to_timetable,
+    get_timetable_by_id,
+    mark_attendance,
+    get_attendance,
 ):
     mcp.tool(tool)
 

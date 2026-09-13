@@ -2,7 +2,7 @@ from ..repositories.logs_repository import LogsRepository
 from ..repositories.subject_repository import SubjectRepository
 from ..repositories.slots_repository import SlotRepository
 from ..repositories.timetable_repository import TimeTableRepository
-from ..models.models import Status, Type, DayOfWeek, Logs
+from ..models.models import Slot, Status, Type, DayOfWeek, Logs
 from datetime import time, date
 
 
@@ -62,13 +62,14 @@ class SlotService:
         type: Type,
     ):
         # Logic to create a new slot
-        return self.slots_repository.create_slot(
+        slot = Slot(
             subject_id=subject_id,
-            day_of_week=day_of_week,
+            day=day_of_week,
             start_time=start_time,
             end_time=end_time,
             type=type,
         )
+        return self.slots_repository.create_slot(slot=slot)
 
     def get_slot_by_id(self, slot_id: int):
         # Logic to retrieve a slot by its ID
