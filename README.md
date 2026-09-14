@@ -26,7 +26,6 @@ METADATA_JSON_RESPONSE=
 SCALEKIT_CLIENT_ID=
 SCALEKIT_ENVIRONMENT_URL=
 SCALEKIT_CLIENT_SECRET=
-
 SCALEKIT_RESOURCE_METADATA_URL=
 SCALEKIT_RESOURCE_NAME=
 SCALEKIT_AUDIENCE_NAME=
@@ -50,29 +49,35 @@ The application will be available at:
 http://127.0.0.1:8000
 ```
 
-The MCP endpoint is:
+## 4. Run the MCP server
+
+Start the MCP server with:
+
+```bash
+uv run python -m attendomatic.src.server
+```
+
+The MCP endpoint is available at:
 
 ```text
 http://127.0.0.1:8000/mcp
 ```
 
-## 4. Debug locally with MCP Inspector
+## 5. Debug locally with MCP Inspector
 
-MCP Inspector can be used to connect to and debug the local MCP server.
-
-With the FastAPI application running, open another terminal and run:
+With the MCP server running, open another terminal and run:
 
 ```bash
 npx @modelcontextprotocol/inspector@latest
 ```
 
-Then open the Inspector UI and connect it to:
+Open the Inspector UI and connect it to:
 
 ```text
 http://127.0.0.1:8000/mcp
 ```
 
-You can use the Inspector to inspect the server, view available tools, and test tool calls during development.
+The Inspector can be used to inspect the available tools, test tool calls, and debug the MCP server locally.
 
 ## Architecture
 
@@ -90,4 +95,4 @@ PostgreSQL
 
 MCP tools expose functionality to the LLM, services contain the business logic, and repositories handle database interaction.
 
-This keeps the core application logic decoupled from the MCP interface and makes the system easier to extend.
+This separation keeps the application modular and decoupled from the MCP interface, allowing the same business logic to be reused across different interfaces.
