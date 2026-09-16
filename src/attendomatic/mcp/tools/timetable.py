@@ -71,3 +71,27 @@ def get_timetable_by_id(timetable_id: int):
     """
     with get_timetable_service() as timetable_service:
         return timetable_service.get_timetable_by_id(timetable_id=timetable_id)
+
+
+def delete_slot_from_timetable(
+    timetable_id: int,
+    request: Request = CurrentRequest(),
+):
+    """
+    Delete a specific slot from the current user's timetable.
+
+    Use this tool when the user wants to remove a class or slot from their
+    personal timetable. The timetable entry must already exist.
+
+    Args:
+        timetable_id: The ID of the timetable entry to delete.
+
+    Returns:
+        A boolean indicating whether the deletion was successful.
+    """
+    user = _get_current_user(request)
+
+    with get_timetable_service() as timetable_service:
+        return timetable_service.delete_timetable(
+            timetable_id=timetable_id,
+        )

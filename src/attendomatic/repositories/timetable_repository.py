@@ -25,3 +25,11 @@ class TimeTableRepository:
         self.session.commit()
         self.session.refresh(timetable)
         return timetable
+
+    def delete_timetable(self, timetable_id: int):
+        timetable = self.get_timetable_by_id(timetable_id)
+        if timetable:
+            self.session.delete(timetable)
+            self.session.commit()
+            return True
+        return False

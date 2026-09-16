@@ -79,3 +79,11 @@ class SlotRepository:
 
     def get_slot_by_id(self, slot_id: int):
         return self.session.get(Slot, slot_id)
+
+    def delete_slot(self, slot_id: int):
+        slot = self.get_slot_by_id(slot_id)
+        if slot:
+            self.session.delete(slot)
+            self.session.commit()
+            return True
+        return False

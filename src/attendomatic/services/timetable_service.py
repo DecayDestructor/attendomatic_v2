@@ -47,3 +47,12 @@ class TimeTableService:
         return self.timetable_repository.get_timetable_by_id(
             timetable_id=timetable_id,
         )
+
+    def delete_timetable(
+        self,
+        timetable_id: int,
+    ):
+        # Logic to delete a specific timetable entry by its ID
+        return self.timetable_repository.delete_timetable(
+            timetable_id=timetable_id,
+        )

@@ -145,3 +145,22 @@ def get_slot_by_id(slot_id: int):
     """
     with get_slot_service() as slot_service:
         return slot_service.get_slot_by_id(slot_id)
+
+
+def delete_slot(slot_id: int, request: Request = CurrentRequest()):
+    """
+    Delete a class slot using its slot ID.
+
+    Use this tool when a slot ID is available and the slot needs to be removed
+    from the system. This action requires administrator privileges.
+
+    Args:
+        slot_id: The unique ID of the class slot to be deleted.
+    Returns:
+        True if the slot was successfully deleted, False if the slot was not found.
+
+    """
+    _require_admin(request)
+
+    with get_slot_service() as slot_service:
+        return slot_service.delete_slot(slot_id)
