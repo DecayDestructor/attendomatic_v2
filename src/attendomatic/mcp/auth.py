@@ -42,6 +42,9 @@ TOOL_SCOPES: dict[str, list[str]] = {
     "get_timetable_by_id": ["all:read"],
     # Write operations — timetable
     "add_slot_to_timetable": ["user:write"],
+    "delete_slot_from_timetable": ["user:write"],
+    # Write operations — slots
+    "delete_slot": ["user:write"],
 }
 
 
