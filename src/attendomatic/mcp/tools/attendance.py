@@ -67,6 +67,7 @@ def get_attendance(
     end_date: date | None = None,
     subject_id: int | None = None,
     request: Request = CurrentRequest(),
+    top_n: int | None = None,
 ):
     """
     Get attendance records for the current user.
@@ -102,6 +103,7 @@ def get_attendance(
             start_date=start_date,
             end_date=end_date,
             subject_id=subject_id,
+            top_n=top_n,
         )
 
     # Map subject_id to subject name
