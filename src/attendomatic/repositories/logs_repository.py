@@ -17,9 +17,9 @@ class LogsRepository:
         start_date: date | None = None,
         end_date: date | None = None,
         class_end_time: datetime | None = None,
+        top_n: int | None = None,
     ):
         statement = select(Logs)
-
         if user_id is not None:
             statement = statement.where(Logs.user_id == user_id)
 
@@ -43,6 +43,9 @@ class LogsRepository:
 
         if class_end_time is not None:
             statement = statement.where(Logs.class_end_time == class_end_time)
+
+        if top_n is not None:
+            statement = statement.limit(top_n)
 
         return statement
 
@@ -73,6 +76,7 @@ class LogsRepository:
         start_date: date | None = None,
         end_date: date | None = None,
         class_end_time: datetime | None = None,
+        top_n: int | None = None,
     ):
         statement = self._build_query(
             user_id=user_id,
@@ -83,7 +87,10 @@ class LogsRepository:
             start_date=start_date,
             end_date=end_date,
             class_end_time=class_end_time,
+            top_n=top_n,
         )
+        if top_n is not None:
+            statement = statement.limit(top_n)
         return self.session.exec(statement).all()
 
     def get_log(
