@@ -46,7 +46,7 @@ class LogsRepository:
             statement = statement.where(Logs.class_end_time == class_end_time)
 
         if newest_first is not None:
-            statement = statement.order_by(Logs.created_at.desc())
+            statement = statement.order_by(Logs.class_date.desc())
 
         if top_n is not None:
             statement = statement.limit(top_n)
