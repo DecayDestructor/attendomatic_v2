@@ -18,6 +18,7 @@ class LogsRepository:
         end_date: date | None = None,
         class_end_time: datetime | None = None,
         top_n: int | None = None,
+        newest_first: bool | None = True,
     ):
         statement = select(Logs)
         if user_id is not None:
@@ -43,6 +44,9 @@ class LogsRepository:
 
         if class_end_time is not None:
             statement = statement.where(Logs.class_end_time == class_end_time)
+
+        if newest_first is not None:
+            statement = statement.order_by(Logs.created_at.desc())
 
         if top_n is not None:
             statement = statement.limit(top_n)
@@ -77,6 +81,7 @@ class LogsRepository:
         end_date: date | None = None,
         class_end_time: datetime | None = None,
         top_n: int | None = None,
+        newest_first: bool | None = True,
     ):
         statement = self._build_query(
             user_id=user_id,
@@ -88,30 +93,8 @@ class LogsRepository:
             end_date=end_date,
             class_end_time=class_end_time,
             top_n=top_n,
+            newest_first=newest_first,
         )
         if top_n is not None:
             statement = statement.limit(top_n)
         return self.session.exec(statement).all()
-
-    def get_log(
-        self,
-        user_id: int | None = None,
-        subject_id: int | None = None,
-        type: Type | None = None,
-        status: Status | None = None,
-        class_end_time: datetime | None = None,
-        is_regular: bool | None = None,
-        start_date: date | None = None,
-        end_date: date | None = None,
-    ):
-        statement = self._build_query(
-            user_id=user_id,
-            subject_id=subject_id,
-            type=type,
-            status=status,
-            is_regular=is_regular,
-            start_date=start_date,
-            end_date=end_date,
-            class_end_time=class_end_time,
-        )
-        return self.session.exec(statement).first()

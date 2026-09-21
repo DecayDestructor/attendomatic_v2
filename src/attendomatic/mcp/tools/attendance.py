@@ -66,6 +66,7 @@ def get_attendance(
     start_date: date | None = None,
     end_date: date | None = None,
     subject_id: int | None = None,
+    newest_first: bool | None = True,
     request: Request = CurrentRequest(),
     top_n: int | None = None,
 ):
@@ -104,6 +105,7 @@ def get_attendance(
             end_date=end_date,
             subject_id=subject_id,
             top_n=top_n,
+            newest_first=newest_first,
         )
 
     # Map subject_id to subject name

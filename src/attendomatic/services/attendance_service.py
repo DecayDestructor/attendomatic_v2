@@ -80,6 +80,7 @@ class AttendanceService:
         end_date: date | None = None,
         subject_id: int | None = None,
         top_n: int | None = None,
+        newest_first: bool | None = True,
     ):
         # Logic to retrieve attendance records for a user
         return self.logs_repository.get_logs(
@@ -91,4 +92,5 @@ class AttendanceService:
             isRegular=is_regular,
             subject_id=subject_id,
             top_n=top_n,
+            newest_first=newest_first,
         )
