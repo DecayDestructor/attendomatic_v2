@@ -45,6 +45,7 @@ TOOL_SCOPES: dict[str, list[str]] = {
     "delete_slot_from_timetable": ["user:write"],
     # Write operations — slots
     "delete_slot": ["user:write"],
+    "delete_log": ["user:write"],
 }
 
 

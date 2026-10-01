@@ -32,7 +32,7 @@ from .tools.timetable import (
     get_timetable_by_id,
     delete_slot_from_timetable,
 )
-from .tools.attendance import mark_attendance, get_attendance
+from .tools.attendance import delete_log, mark_attendance, get_attendance
 
 mcp = FastMCP("Attendomatic")
 
@@ -55,6 +55,7 @@ for tool in (
     get_attendance,
     delete_slot_from_timetable,
     delete_slot,
+    delete_log,
 ):
     mcp.tool(tool)
 

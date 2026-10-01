@@ -94,3 +94,7 @@ class AttendanceService:
             top_n=top_n,
             newest_first=newest_first,
         )
+
+    def delete_log(self, log: Logs):
+        # Logic to delete a specific attendance log
+        self.logs_repository.delete_log(log)

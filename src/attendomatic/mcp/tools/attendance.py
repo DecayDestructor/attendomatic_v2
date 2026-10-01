@@ -3,7 +3,7 @@
 from ..dependencies import get_attendance_service, get_subject_service
 from fastmcp.dependencies import CurrentRequest
 from starlette.requests import Request
-from ...models.models import Status, Type
+from ...models.models import Status, Type, Logs
 from datetime import time, date
 
 
@@ -118,3 +118,19 @@ def get_attendance(
         }
         for attendance in attendances
     ]
+
+
+def delete_log(log: Logs, request: Request = CurrentRequest()):
+    """
+    Delete a specific attendance log for the current user.
+
+    Use this tool when the user wants to remove an attendance record
+    from their history. The log is identified by its unique ID.
+
+    Args:
+        log_id: The unique identifier of the attendance log to delete.
+    """
+    user = _get_current_user(request)
+
+    with get_attendance_service() as attendance_service:
+        attendance_service.delete_log(log)
